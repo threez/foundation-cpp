@@ -231,10 +231,25 @@ namespace Foundation {
       return *at(index);
     }
     
+    /*
+     * deletes all items from the vector that are equal to item
+     * @returns the count of deleted items, 0 when no item was found
+     */
+    Index remove(const Item &item) {
+      Index removed = 0;
+      for (Index i = 0; i < this->elementsSize; ++i) {
+        if (this->elements[i] == item) {
+          this->removeAt(i);
+          removed++;
+        }
+      }
+      return removed;
+    }
+    
     /**
      * removes the element at the passed index
      */
-    Item deleteAt(Index index) {
+    Item removeAt(Index index) {
       index = this->indexFor(index);
       // save value
       Item item = this->elements[index];

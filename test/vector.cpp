@@ -200,30 +200,44 @@ void testSort() {
   assertEquals(0, vector[0]);
 }
 
-void testDeleteAt() {
+void testRemoveAt() {
   int numbers[] = {
     1, 22, 4, 15, 69, 7, 88, 90, 0, 7
   };
   Vector<int> vector(numbers, 10);
   
   // error  
-  assertThrows(VectorAccessException<int>, vector.deleteAt(200));
+  assertThrows(VectorAccessException<int>, vector.removeAt(200));
   
   // from the middle
   assertEquals(4, vector[2]);
-  vector.deleteAt(2);
+  vector.removeAt(2);
   assertEquals(9, vector.size());
   assertEquals(15, vector[2]);
   
   // from the beginning
-  vector.deleteAt(0);
+  vector.removeAt(0);
   assertEquals(8, vector.size());
   assertEquals(22, vector.first());
   
   // from the end
-  vector.deleteAt(-1);
+  vector.removeAt(-1);
   assertEquals(7, vector.size());
   assertEquals(0, vector.last());
+}
+
+void testRemove() {
+  int numbers[] = {
+    1, 22, 4, 15, 69, 7, 88, 90, 0, 7
+  };
+  Vector<int> vector(numbers, 10);
+  
+  assertEquals(0, vector.remove(99));
+  assertEquals(10, vector.size());
+  assertEquals(1, vector.remove(0));
+  assertEquals(9, vector.size());
+  assertEquals(2, vector.remove(7));
+  assertEquals(7, vector.size());
 }
 
 int main (int argc, char * const argv[]) {
@@ -239,7 +253,8 @@ int main (int argc, char * const argv[]) {
   suite << testMapping;
   suite << testReverse;
   suite << testSort;
-  suite << testDeleteAt;
+  suite << testRemoveAt;
+  suite << testRemove;
   suite.run();
   return 0;
 }
