@@ -232,6 +232,20 @@ namespace Foundation {
     }
     
     /**
+     * removes the element at the passed index
+     */
+    Item deleteAt(Index index) {
+      index = this->indexFor(index);
+      // save value
+      Item item = this->elements[index];
+      // move whole array over
+      memmove(&this->elements[index], &this->elements[index + 1],
+              (size_t)(sizeof(Item) * (this->elementsSize - index - 1)));
+      this->elementsSize--;
+      return item;
+    }
+    
+    /**
      * return string representation of vector
      */
     std::string inspect() {

@@ -200,6 +200,32 @@ void testSort() {
   assertEquals(0, vector[0]);
 }
 
+void testDeleteAt() {
+  int numbers[] = {
+    1, 22, 4, 15, 69, 7, 88, 90, 0, 7
+  };
+  Vector<int> vector(numbers, 10);
+  
+  // error  
+  assertThrows(VectorAccessException<int>, vector.deleteAt(200));
+  
+  // from the middle
+  assertEquals(4, vector[2]);
+  vector.deleteAt(2);
+  assertEquals(9, vector.size());
+  assertEquals(15, vector[2]);
+  
+  // from the beginning
+  vector.deleteAt(0);
+  assertEquals(8, vector.size());
+  assertEquals(22, vector.first());
+  
+  // from the end
+  vector.deleteAt(-1);
+  assertEquals(7, vector.size());
+  assertEquals(0, vector.last());
+}
+
 int main (int argc, char * const argv[]) {
   Test::Suite suite("Vector", 20);
   suite << testVectorSize;
@@ -213,6 +239,7 @@ int main (int argc, char * const argv[]) {
   suite << testMapping;
   suite << testReverse;
   suite << testSort;
+  suite << testDeleteAt;
   suite.run();
   return 0;
 }
